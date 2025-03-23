@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبودا بيحبك ياندوشة ❤️</title>
+    <style>
+        /* إعدادات عامة */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #FF1493, #FF6347, #FF69B4); /* تدرج ألوان وردية وحمراء تعبير عن الحب */
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite; /* تغيير التدرج بشكل متحرك */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* أنيمشن التدرج اللوني */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .countdown {
+            font-size: 100px;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+            animation: fadeIn 1s ease-in-out;
+            opacity: 1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* اسم الشخص الذي يظهر بعد العد التنازلي */
+        .text {
+            font-size: 70px;
+            font-weight: bold;
+            color: #ffffff; /* لون أبيض ليتناسق مع الخلفية */
+            text-shadow: 0 0 30px #ff69b4, 0 0 50px #ff69b4;
+            opacity: 0;
+            animation: fadeText 2s ease-in-out forwards;
+            position: relative;
+        }
+
+        @keyframes fadeText {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* قلوب تطير على الصفحة */
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            color: #ffffff;
+            animation: floatHeart 4s infinite linear;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-200px); opacity: 0; }
+        }
+
+        /* أسهم تطير من أماكن مختلفة */
+        .arrow {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ffcc00;
+            transform: rotate(45deg);
+            animation: floatArrow 3s infinite linear;
+        }
+
+        @keyframes floatArrow {
+            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            100% { transform: translateY(-150px) rotate(45deg); opacity: 0; }
+        }
+
+        /* النص المتحرك في الأسفل */
+        .scrolling-text {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 50px;
+            color: #ffffff;
+            font-weight: bold;
+            text-shadow: 0 0 30px #ff69b4, 0 0 50px #ff69b4;
+            animation: scrollText 12s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scrollText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* إضافة تأثيرات للعد التنازلي */
+        .countdown span {
+            font-size: 150px;
+            font-weight: bold;
+            color: #ff69b4;
+            animation: zoomIn 1s ease-in-out forwards;
+        }
+
+        @keyframes zoomIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- العد التنازلي -->
+    <div class="countdown" id="countdown">3</div>
+
+    <!-- اسم الشخص يظهر بعد العد التنازلي -->
+    <div class="text" id="name" style="display: none;">عبودا بيحبك ياندوشة ❤️</div>
+
+    <!-- نص متحرك يظهر في أسفل الصفحة -->
+    <div class="scrolling-text" id="loveText" style="display: none;">أنتِ أغلى ما في حياتي ❤️</div>
+
+    <!-- إضافة عنصر الصوت (الأغنية) -->
+    <audio id="song" preload="auto">
+        <!-- هنا يجب استبدال الرابط إلى رابط أغنية عمرو دياب -->
+        <source src="WhatsApp Audio 2025-03-23 at 14.59.27_f5dcd0f1.mp3" type="audio/mpeg">
+        متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+
+    <script>
+        let countdownNumber = 3;
+        const countdownElement = document.getElementById("countdown");
+        const nameElement = document.getElementById("name");
+        const loveTextElement = document.getElementById("loveText");
+        const song = document.getElementById("song");
+
+        // تحديث العد التنازلي
+        function updateCountdown() {
+            if (countdownNumber > 0) {
+                countdownElement.innerHTML = countdownNumber;
+                countdownNumber--;
+            } else {
+                countdownElement.style.display = 'none'; // إخفاء العد التنازلي بعد الانتهاء
+                nameElement.style.display = 'block'; // إظهار الاسم بعد العد
+                loveTextElement.style.display = 'block'; // إظهار "أنتِ أغلى ما في حياتي"
+                showHeartsAndArrows(); // إضافة القلوب والأسهم
+            }
+        }
+
+        // إنشاء قلوب عشوائية
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = window.innerHeight + "px";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 4000); // إزالة القلب بعد 4 ثواني
+        }
+
+        // إنشاء أسهم عشوائية
+        function createArrow() {
+            const arrow = document.createElement("div");
+            arrow.classList.add("arrow");
+            arrow.style.left = Math.random() * window.innerWidth + "px";
+            arrow.style.top = window.innerHeight + "px";
+            document.body.appendChild(arrow);
+
+            setTimeout(() => {
+                arrow.remove();
+            }, 3000); // إزالة السهم بعد 3 ثواني
+        }
+
+        // عرض القلوب والأسهم
+        function showHeartsAndArrows() {
+            setInterval(createHeart, 500);  // إضافة قلب كل 0.5 ثانية
+            setInterval(createArrow, 800);  // إضافة سهم كل 0.8 ثانية
+        }
+
+        // تفعيل تشغيل الأغنية عند النقر على الشاشة
+        document.body.addEventListener("click", () => {
+            song.play();
+        });
+
+        setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
